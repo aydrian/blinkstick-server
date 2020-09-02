@@ -4,6 +4,6 @@ export default (req, res) => {
     req.context.io.emit("color", { hex, op });
     res.status(200).send("ok");
   } else {
-    res.satus(501).send();
+    res.satus(405).send();
   }
 };
