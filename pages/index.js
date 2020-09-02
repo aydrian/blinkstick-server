@@ -1,8 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import socketIOClient from "socket.io-client";
 import { ChromePicker } from "react-color";
 
 const Home = () => {
   const [color, setColor] = useState("#000000");
+
+  useEffect(() => {
+    const socket = socketIOClient();
+    socket.on("color", ({ hex }) => {
+      setColor(`#${hex}`);
+    });
+
+    return () => socket.disconnect();
+  }, []);
 
   const handleChangeComplete = (color, event) => {
     setColor(color.hex);
